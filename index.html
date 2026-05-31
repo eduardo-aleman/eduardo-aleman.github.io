@@ -1,231 +1,604 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Eduardo Alemán – Proyectos de Humanidades Digitales" />
-  <meta name="theme-color" content="#2980b9" />
+  <meta name="description" content="Eduardo Alemán – Digital Humanities" />
+  <meta name="theme-color" content="#0f0e0c" />
   <title>Eduardo Alemán</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400&family=DM+Mono:wght@300;400&family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #F4F0EB;
-      --fg: #2c3e50;
-      --accent: #2980b9;
-      --border: #e0e0e0;
-      --shadow: rgba(0, 0, 0, 0.06);
-      --radius: 8px;
-      --sp-sm: 0.4rem;
-      --sp-md: 0.8rem;
-      --sp-lg: 1.5rem;
+      --ink:    #0f0e0c;
+      --parch:  #f2ede4;
+      --rust:   #b03a1e;
+      --gold:   #c8922a;
+      --smoke:  #e4dfd7;
+      --mid:    #8a8278;
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --mono:   'DM Mono', monospace;
+      --display:'Bebas Neue', sans-serif;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      font-family: var(--serif);
+      background: var(--parch);
+      color: var(--ink);
       min-height: 100vh;
-      padding: var(--sp-md);
+      overflow-x: hidden;
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ── Layout ─────────────────────────────────── */
-    .container {
-      max-width: 600px;
-      width: 100%;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 4px 16px var(--shadow);
-      padding: var(--sp-lg);
-    }
-
-    /* ── Header ─────────────────────────────────── */
-    header {
-      text-align: center;
-      margin-bottom: var(--sp-lg);
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: var(--sp-sm);
-    }
-
-    header p {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: var(--sp-md);
-    }
-
-    nav ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem 1.5rem;
-      list-style: none;
-      font-size: 0.9rem;
-    }
-
-    /* ── Section headings ───────────────────────── */
-    h2 {
-      font-size: 0.8rem;
-      color: var(--accent);
-      margin-bottom: var(--sp-md);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-    }
-
-    section + section { margin-top: var(--sp-lg); }
-
-    /* ── Bio list ───────────────────────────────── */
-    ul.scannable {
-      list-style: none;
-      font-size: 0.95rem;
-    }
-
-    ul.scannable li {
-      position: relative;
-      padding-left: 1.2rem;
-      margin-bottom: var(--sp-sm);
-    }
-
-    ul.scannable li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-
-    /* ── Cards ──────────────────────────────────── */
-    .grid-links {
+    /* ─── HERO: SPLIT SCREEN ─────────────────────── */
+    .hero {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: var(--sp-md);
+      grid-template-columns: 1fr 1fr;
+      min-height: 100svh;
+      position: relative;
     }
 
-    .card {
+    /* vertical divider */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent 0%, var(--ink) 15%, var(--ink) 85%, transparent 100%);
+      z-index: 10;
+    }
+
+    /* ─── PORTRAIT MEDALLION ─────────────────────── */
+    .portrait-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+    }
+
+    .portrait {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--smoke);
+      border: 3px solid var(--ink);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* placeholder silhouette */
+    .portrait svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Name arc above portrait */
+    .name-arc {
+      position: absolute;
+      top: -2.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* year below */
+    .year-tag {
+      position: absolute;
+      bottom: -1.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      color: var(--mid);
+    }
+
+    /* ─── EACH HALF ──────────────────────────────── */
+    .half {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 3rem;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      overflow: hidden;
+      transition: background 0.45s ease;
+    }
+
+    .half::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+    }
+
+    .half.en::before { background: var(--ink); }
+    .half.es::before { background: var(--rust); }
+
+    .half:hover::before { opacity: 1; }
+
+    .half:hover .label,
+    .half:hover .lang-word,
+    .half:hover .descriptor,
+    .half:hover .cta-pill { color: var(--parch); }
+
+    .half:hover .cta-pill { border-color: var(--parch); }
+    .half:hover .big-letter { opacity: 0.07; }
+
+    /* large decorative background letter */
+    .big-letter {
+      position: absolute;
+      font-family: var(--display);
+      font-size: clamp(16rem, 30vw, 28rem);
+      line-height: 1;
+      opacity: 0.05;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+      user-select: none;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink);
+    }
+
+    .en .big-letter { right: -1rem; }
+    .es .big-letter { left: -1rem; }
+
+    /* content stack */
+    .half-content {
+      position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 1.1rem;
       text-align: center;
-      padding: var(--sp-md);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 0.9rem;
-      color: var(--fg);
-      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
     }
 
-    .card:hover {
-      background: #f4f8fc;
-      box-shadow: 0 4px 12px var(--shadow);
-      transform: translateY(-3px);
-      text-decoration: none;
+    .en .half-content { padding-right: 4rem; }
+    .es .half-content { padding-left: 4rem; }
+
+    .label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      transition: color 0.45s ease;
     }
 
-    .card img {
-      width: 32px;
+    .lang-word {
+      font-family: var(--display);
+      font-size: clamp(4rem, 9vw, 7.5rem);
+      line-height: 0.9;
+      letter-spacing: 0.03em;
+      transition: color 0.45s ease;
+    }
+
+    .en .lang-word { color: var(--ink); }
+    .es .lang-word { color: var(--rust); }
+
+    .descriptor {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      font-weight: 300;
+      color: var(--mid);
+      transition: color 0.45s ease;
+      max-width: 14ch;
+    }
+
+    .cta-pill {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.45em 1.5em;
+      border: 1px solid var(--ink);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.45s ease, border-color 0.45s ease;
+    }
+
+    .es .cta-pill { border-color: var(--rust); color: var(--rust); }
+
+    /* hover arrow nudge */
+    .arrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      margin-left: 0.4em;
+      transition: transform 0.25s ease;
+    }
+
+    .half:hover .arrow { transform: translateX(4px); }
+
+    /* ─── SCROLL HINT ────────────────────────────── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      animation: fadeup 2s ease 1.5s both;
+    }
+
+    .scroll-hint span { writing-mode: vertical-lr; }
+
+    .scroll-line {
+      width: 1px;
       height: 32px;
-      margin-bottom: var(--sp-sm);
+      background: var(--mid);
+      animation: grow-line 2s ease 1.5s both;
     }
 
-    .card p { margin-top: var(--sp-sm); }
+    @keyframes grow-line {
+      from { transform: scaleY(0); transform-origin: top; }
+      to   { transform: scaleY(1); }
+    }
 
-    /* ── Footer ─────────────────────────────────── */
-    footer {
-      font-size: 0.8rem;
-      color: #888;
-      text-align: center;
-      margin-top: var(--sp-lg);
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ─── BELOW THE FOLD ─────────────────────────── */
+    .below {
+      background: var(--ink);
+      color: var(--parch);
+      padding: 5rem 2rem 4rem;
+    }
+
+    .below-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-rule {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-rule::before,
+    .section-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--mid);
+      opacity: 0.4;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      white-space: nowrap;
+    }
+
+    /* bio + links grid */
+    .below-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .col-heading {
+      font-family: var(--display);
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      color: var(--parch);
+    }
+
+    .col-sub {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    /* bio bullets */
+    .bio-list {
+      list-style: none;
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--smoke);
+    }
+
+    .bio-list li::before {
+      content: '— ';
+      color: var(--gold);
+    }
+
+    /* link grid */
+    .link-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--smoke);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .link-item:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--parch);
+    }
+
+    .link-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* projects row */
+    .projects-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 3rem;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .project-card {
+      background: var(--ink);
+      padding: 1.4rem 1.1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .project-card:hover { background: #1a1916; }
+
+    .project-name {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      letter-spacing: 0.03em;
+      color: var(--parch);
+      line-height: 1.1;
+    }
+
+    .project-desc {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    .project-lang {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: auto;
+    }
+
+    /* footer line */
+    .foot {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .foot a { color: inherit; text-decoration: none; }
+    .foot a:hover { color: var(--parch); }
+
+    /* ─── ENTRY ANIMATIONS ───────────────────────── */
+    .half-content { animation: fadein 0.9s ease both; }
+    .en .half-content { animation-delay: 0.15s; }
+    .es .half-content { animation-delay: 0.35s; }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; min-height: 100svh; }
+      .hero::after { top: 50%; bottom: auto; left: 0; right: 0; width: auto; height: 1px;
+        background: linear-gradient(to right, transparent 0%, var(--ink) 15%, var(--ink) 85%, transparent 100%); }
+      .portrait-wrap { top: 50%; left: 50%; }
+      .en .half-content,
+      .es .half-content { padding: 0; }
+      .half { padding: 2.5rem 1.5rem; }
+      .below-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .projects-row { grid-template-columns: 1fr 1fr; }
+      .foot { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .scroll-hint { display: none; }
+      .big-letter { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .link-grid { grid-template-columns: 1fr; }
+      .projects-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>Eduardo Alemán</h1>
-      <p>Proyectos de Humanidades Digitales</p>
-      <nav aria-label="Navegación principal">
-        <ul>
-          <li><a href="https://ealeman.com/en/">English</a></li>
-          <li><a href="/blog/es/">Blog</a></li>
-          <li><a href="https://github.com/eduardo-aleman">GitHub</a></li>
-          <li><a href="mailto:aleman@ealeman.com">Correo</a></li>
-        </ul>
-      </nav>
-    </header>
+<!-- ═══ HERO ═══════════════════════════════════════ -->
+<section class="hero" aria-label="Blog entrances">
 
-    <main>
-      <section id="bio" aria-labelledby="bio-heading">
-        <h2 id="bio-heading">Sobre mí</h2>
-        <ul class="scannable">
-          <li>Nacido en Cuba, radicado en California.</li>
-          <li>Interesado en la historia y la filosofía.</li>
-          <li>Los libros son un compañero constante.</li>
-        </ul>
-      </section>
+  <!-- English half -->
+  <a class="half en" href="https://blog.ealeman.com/en/" aria-label="Enter the English blog">
+    <span class="big-letter" aria-hidden="true">E</span>
+    <div class="half-content">
+      <span class="label">Read in</span>
+      <span class="lang-word">English</span>
+      <span class="descriptor">Essays, notes &amp; readings</span>
+      <span class="cta-pill">Enter the blog <span class="arrow">→</span></span>
+    </div>
+  </a>
 
-      <section id="projects" aria-labelledby="projects-heading">
-        <h2 id="projects-heading">Proyectos y textos</h2>
-        <div class="grid-links">
-          <a href="https://corpusabierto.com/" class="card">
-            <img src="/images/corpus.svg" alt="" role="presentation" />
-            <p>Corpus Abierto<br><small>Textos clásicos abiertos, anotados y navegables</small></p>
-          </a>
-          <a href="https://griegoatico.com/" class="card">
-            <img src="/images/atico.svg" alt="" role="presentation" />
-            <p>Griego Ático<br><small>Aprendizaje del griego antiguo</small></p>
-          </a>
-          <a href="https://analectastoa.com/" class="card">
-            <img src="/images/stoa.svg" alt="" role="presentation" />
-            <p>Analecta Stoa<br><small>Mis resúmenes de textos clásicos (en inglés)</small></p>
-          </a>
-          <a href="https://hereticlogic.com/" class="card">
-            <img src="/images/collaborative.svg" alt="" role="presentation" />
-            <p>Heretic Logic<br><small>Mis resúmenes de textos modernos (en inglés)</small></p>
-          </a>
-        </div>
-      </section>
-
-      <section id="links" aria-labelledby="links-heading">
-        <h2 id="links-heading">Enlaces</h2>
-        <div class="grid-links">
-          <a href="https://www.flickr.com/photos/ealeman/albums/" class="card">
-            <img src="/images/flickr_icon.svg" alt="" role="presentation" /><p>Flickr</p>
-          </a>
-          <a href="https://unsplash.com/@ealeman" class="card">
-            <img src="/images/unsplash_icon.svg" alt="" role="presentation" /><p>Unsplash</p>
-          </a>
-          <a href="https://keybase.io/ealeman" class="card">
-            <img src="/images/keybase_mark.svg" alt="" role="presentation" /><p>Keybase</p>
-          </a>
-          <a href="https://keys.openpgp.org/search?q=aleman%40ealeman.com" class="card">
-            <img src="/images/openpgp_logo.svg" alt="" role="presentation" /><p>Llave GPG</p>
-          </a>
-        </div>
-      </section>
-    </main>
+  <!-- Portrait centered on the divider -->
+  <div class="portrait-wrap" aria-hidden="true">
+    <span class="name-arc">Eduardo Alemán</span>
+    <div class="portrait">
+      <img src="/images/eduardo.png" alt="Eduardo Alemán" style="width:100%; height:100%; object-fit:cover;" />
+    </div>
+    <span class="year-tag">ealeman.com</span>
   </div>
 
-  <footer>
-    <p>© <time id="year"></time> Eduardo Alemán — CC BY‑NC‑ND 4.0</p>
-  </footer>
+  <!-- Spanish half -->
+  <a class="half es" href="https://blog.ealeman.com/es/" aria-label="Entrar al blog en español">
+    <span class="big-letter" aria-hidden="true">A</span>
+    <div class="half-content">
+      <span class="label">Leer en</span>
+      <span class="lang-word">Español</span>
+      <span class="descriptor">Ensayos, notas y lecturas</span>
+      <span class="cta-pill">Entrar al blog <span class="arrow">→</span></span>
+    </div>
+  </a>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <!-- Scroll nudge -->
+  <div class="scroll-hint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>más · more</span>
+  </div>
+
+</section>
+
+<!-- ═══ BELOW THE FOLD ══════════════════════════════ -->
+<section class="below" aria-label="About and links">
+  <div class="below-inner">
+
+    <div class="section-rule">
+      <span class="section-label">On this site · En este sitio</span>
+    </div>
+
+    <!-- Projects -->
+    <div class="projects-row" role="list">
+      <a class="project-card" href="https://corpusabierto.com/" role="listitem">
+        <span class="project-name">Corpus Abierto</span>
+        <span class="project-desc">Open, annotated &amp; navigable classical texts</span>
+        <span class="project-lang">es</span>
+      </a>
+      <a class="project-card" href="https://griegoatico.com/" role="listitem">
+        <span class="project-name">Griego Ático</span>
+        <span class="project-desc">Learning the ancient Greek language</span>
+        <span class="project-lang">es</span>
+      </a>
+      <a class="project-card" href="https://analectastoa.com/" role="listitem">
+        <span class="project-name">Analecta Stoa</span>
+        <span class="project-desc">Summaries of classical texts</span>
+        <span class="project-lang">en</span>
+      </a>
+      <a class="project-card" href="https://hereticlogic.com/" role="listitem">
+        <span class="project-name">Heretic Logic</span>
+        <span class="project-desc">Summaries of modern texts</span>
+        <span class="project-lang">en</span>
+      </a>
+    </div>
+
+    <!-- Bio + Links -->
+    <div class="below-grid">
+      <div>
+        <p class="col-sub">About · Acerca de</p>
+        <ul class="bio-list">
+          <li>Born in Cuba, based in California.</li>
+          <li>Nacido en Cuba, radicado en California.</li>
+          <li>Interested in history and philosophy.</li>
+          <li>Interesado en la historia y la filosofía.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="col-sub">Elsewhere · En la red</p>
+        <nav class="link-grid" aria-label="External links">
+          <a class="link-item" href="https://github.com/eduardo-aleman">
+            <span class="link-dot"></span>GitHub
+          </a>
+          <a class="link-item" href="https://www.flickr.com/photos/ealeman/albums/">
+            <span class="link-dot"></span>Flickr
+          </a>
+          <a class="link-item" href="https://unsplash.com/@ealeman">
+            <span class="link-dot"></span>Unsplash
+          </a>
+          <a class="link-item" href="https://keybase.io/ealeman">
+            <span class="link-dot"></span>Keybase
+          </a>
+          <a class="link-item" href="https://keys.openpgp.org/search?q=aleman%40ealeman.com">
+            <span class="link-dot"></span>GPG Key
+          </a>
+          <a class="link-item" href="mailto:aleman@ealeman.com">
+            <span class="link-dot"></span>Email
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <span>© <span id="yr"></span> Eduardo Alemán</span>
+      <span>CC BY-NC-ND 4.0</span>
+    </footer>
+
+  </div>
+</section>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
