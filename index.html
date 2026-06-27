@@ -463,6 +463,9 @@
       .en .half-content,
       .es .half-content { padding: 0; }
       .half { padding: 2.5rem 1.5rem; }
+      /* keep each panel's content clear of the centred portrait medallion */
+      .half.en { justify-content: flex-start; padding-top: 2.5rem; padding-bottom: 7.5rem; }
+      .half.es { justify-content: flex-end;   padding-top: 7rem;   padding-bottom: 2.5rem; }
       .below-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .projects-row { grid-template-columns: 1fr 1fr; }
       .foot { flex-direction: column; gap: 0.5rem; text-align: center; }
